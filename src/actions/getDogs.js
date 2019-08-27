@@ -12,7 +12,11 @@ export function getDogs() {
   return function(dispatch) {
     request('https://dog.ceo/api/breeds/list/all')
       .then(response => {
-        dispatch(setDogs(Object.keys(response.body.message)))
+        const arrayOfDogsAsObjects = Object.keys(response.body.message).map(dog => {
+          const dogObject = { name: dog, images: []}
+          return dogObject
+        })
+        dispatch(setDogs(arrayOfDogsAsObjects))
       })
     }
 }
