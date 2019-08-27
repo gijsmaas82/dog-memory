@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { getDogs, setDogs } from '../actions/getDogs'
-import { connect } from 'react-redux';
 
-class LogInForm extends Component {
-  componentDidMount() {
-    this.props.getDogs()
-  }
+
+
+export default class LogInForm extends Component {
+  
   
   render() {
     return (
@@ -17,11 +15,3 @@ class LogInForm extends Component {
   }
 }
 
-const mapDispatchToProps = {
-  
-    getDogs, setDogs
-  
-}
-
-
-export default connect(null, mapDispatchToProps)(LogInForm)
