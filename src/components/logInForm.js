@@ -31,6 +31,7 @@ class LogInForm extends Component {
   }
 }
 
+
 const mapStateToProps = (state) => {
   return {
     name: state.login
