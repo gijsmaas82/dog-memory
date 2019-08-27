@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom'
-import LogInForm from './components/logInForm';
+import OverView from './components/overView'
+import LogInForm from './components/LogInForm';
 import PracticeContainer from './components/PracticeContainer'
 import { getDogs, setDogs } from './actions/getDogs'
 import { connect } from 'react-redux';
@@ -16,6 +17,7 @@ class App extends Component {
       <div className="App">
         <Route exact path="/" component={LogInForm} />
         <Route path="/practice/" component={PracticeContainer} />
+        <OverView />
       </div>
     )
   }
