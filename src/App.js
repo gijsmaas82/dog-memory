@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import LogInForm from './components/logInForm';
+import LogInForm from './components/LogInForm';
 
 function App() {
   return (
