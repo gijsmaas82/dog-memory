@@ -12,7 +12,7 @@ class OverView extends Component {
         return (
             <div>
                 <div>
-                    <h1 className="header">Practice</h1>
+                <Link to='./practice'><h1 className="header">Practice</h1></Link>
                  </div>
                  <div className="buttons">
                      <Link to='/gameone'><button type="button" className="btn btn-primary btn-lg">First Game</button></Link>

@@ -13,9 +13,10 @@ class LogInForm extends Component {
   }
 
   handleSubmit = (event) => {
+    console.log("hello?")
     event.preventDefault()
     this.props.addName(this.state.value)
-
+    this.props.history.push("/overview")
   }
 
   render() {
@@ -23,8 +24,8 @@ class LogInForm extends Component {
       <div className="form-content">
         <h1>USERNAME</h1>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleChange} />
-          <Link to="/overview" ><button >Submit</button> </Link>
+          <input type="text" onChange={this.handleChange} value={this.state.value} />
+          <button >Submit</button> 
         </form>
       </div>
     )

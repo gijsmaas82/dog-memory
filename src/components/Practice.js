@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as request from 'superagent'
+import "./Practice.css"
 
 export default class Practice extends Component {
   state = {
@@ -39,25 +40,27 @@ export default class Practice extends Component {
   render() {
     console.log(this.state.images)
     return (
-      <div>
-        { !this.props.dogs && 'loading...'}
+      <div className="practicePage">
+        <div>
+          { !this.props.dogs && 'loading...'}
 
-        { this.props.dogs && 
-         <ul className='practiceList' > {this.props.dogs.map(dog => {
-          return <li
-          id={dog} 
-          key={dog} 
-          className='practiceListItem'
-          onClick={this.getDogImages}
-          >{dog}</li>
-         })} </ul>
-        }
-
-
-        { this.state.images && this.state.images.map(image => {
-          return <img src={image} alt="dog" />
-        })
-        }
+          { this.props.dogs && 
+           <ul className='practiceList' > {this.props.dogs.map(dog => {
+            return <li
+            id={dog} 
+            key={dog} 
+            className='practiceListItem'
+            onClick={this.getDogImages}
+            >{dog}</li>
+           })} </ul>
+          }
+        </div>
+        <div className="images">
+          { this.state.images && this.state.images.map(image => {
+            return <img className="image" src={image} alt="dog" />
+          })
+          }
+         </div> 
       </div>
     )
   }

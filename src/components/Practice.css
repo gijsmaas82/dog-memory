@@ -1,0 +1,14 @@
+.practicePage {
+  display: flex;
+}
+
+.images {
+  flex-direction: row;
+  max-width: 50em;
+  justify-content: space-evenly
+}
+
+.image {
+  height: 20vh;
+
+}

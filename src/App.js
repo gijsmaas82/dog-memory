@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom'
-import OverView from './components/overView'
+import OverView from './components/OverView'
 import LogInForm from './components/LogInForm';
 import PracticeContainer from './components/PracticeContainer'
 import { getDogs, setDogs } from './actions/getDogs'
@@ -16,8 +16,8 @@ class App extends Component {
     return (
       <div className="App">
         <Route exact path="/" component={LogInForm} />
-        <Route path="/practice/" component={PracticeContainer} />
-        <OverView />
+        <Route  path="/practice/" component={PracticeContainer} />
+        <Route path="/overview/" component={OverView} />
       </div>
     )
   }
