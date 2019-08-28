@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { addName } from '../actions/addName'
-import { Link } from 'react-router-dom'
 
 class LogInForm extends Component {
   state = {
@@ -13,7 +12,6 @@ class LogInForm extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log("hello?")
     event.preventDefault()
     this.props.addName(this.state.value)
     this.props.history.push("/overview")
