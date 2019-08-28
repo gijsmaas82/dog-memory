@@ -2,15 +2,40 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as request from 'superagent'
 
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+// Used like so
+var arr = [2, 11, 37, 42];
+arr = shuffle(arr);
+console.log(arr)
+
+
 class GameOneContainer extends Component {
   state = {
     question: 0,
     points: 0,
     breeds: [],
-    rightImage: null,
-    wrongImage1: null,
-    wrongImage2: null
-  }
+    rightArray: [],
+    shuffleArray: [],
+    }
 
   firstQuestion = () => {
     this.setState({ question: this.state.question + 1})
@@ -25,21 +50,26 @@ class GameOneContainer extends Component {
   }
 
   getAnswers = () => {
-    const rightDog = this.state.breeds[Math.floor(this.state.question % this.state.breeds.length)]
-    request(`https://dog.ceo/api/breed/${encodeURIComponent(rightDog)}/images/random`)
+    
+    const rightDog = this.state.breeds[Math.floor(Math.random()* (this.state.question % this.state.breeds.length))]
+    const rıghtImage = request(`https://dog.ceo/api/breed/${encodeURIComponent(rightDog)}/images/random`)
+      
+    const wrongImage1 = request(`https://dog.ceo/api/breeds/image/random`)
+      
+    const wrongImage2 = request(`https://dog.ceo/api/breeds/image/random`)
+    const images = [rıghtImage, wrongImage1, wrongImage2]
+    Promise.all(images)
+      .then(responses => responses.map(response => {
+        return this.setState({ rightArray: this.state.rightArray.concat(response.body.message) }) 
+      })) 
       .then(response => {
-        this.setState({ rightImage: response.body.message })
-      })
-    request(`https://dog.ceo/api/breeds/image/random`)
-      .then(response => {
-        this.setState({ wrongImage1: response.body.message })
-      })
-    request(`https://dog.ceo/api/breeds/image/random`)
-      .then(response => {
-        this.setState({ wrongImage2: response.body.message })
+          const shuffleArray = this.state.rightArray.map(url => url)
+         this.setState({ shuffleArray: shuffle(shuffleArray)})
       })
     
+      
   }
+
 
   componentDidMount() {
     
@@ -47,7 +77,7 @@ class GameOneContainer extends Component {
 
   
   render() {
-    console.log(this.state)
+    
     return (
       <div>
         
@@ -55,16 +85,16 @@ class GameOneContainer extends Component {
         {this.state.question !== 0 && 
         <div>
           <h1>question: {this.state.question}</h1>
-          <h2> Click on the right picture of the {this.state.breeds[Math.floor(this.state.question % this.state.breeds.length)]}</h2>
+          <h2> Click on the right picture of the {this.state.breeds[Math.floor(Math.random()* (this.state.question % this.state.breeds.length))]}</h2>
         </div>}
         <div>
           
-          {this.state.rightImage === null && this.state.question !== 0 ? 
+          {this.state.rightArray.length === 0 && this.state.question !== 0 ? 
           <button onClick={this.getAnswers}>click for answers</button> : ''}
-          {this.state.rightImage !== null && <div>
-            <img src={this.state.rightImage} alt="doggie" />
-            <img src={this.state.wrongImage1} alt="doggie" />
-            <img src={this.state.wrongImage2} alt="doggie" />
+          {this.state.rightArray.length !== 0 && <div>
+            <img src={this.state.shuffleArray[0]} alt="doggie" />
+            <img src={this.state.shuffleArray[1]} alt="doggie" />
+            <img src={this.state.shuffleArray[2]} alt="doggie" />
           </div>}
         </div>
       </div>
