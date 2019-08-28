@@ -30,15 +30,14 @@ class LogInForm extends Component {
   }
 }
 
-
-const mapStateToProps = (state) => {
-  return {
-    name: state.login
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     name: state.login
+//   }
+// }
 
 const mapDispatchToProps = {
   addName
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogInForm)
+export default connect(null, mapDispatchToProps)(LogInForm)

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import "./Practice.css"
 import { Link } from 'react-router-dom';
+import UserName from './UserName'
 
 export default class Practice extends Component {
 
@@ -12,6 +13,7 @@ export default class Practice extends Component {
       <div className="practicePage">
         <div>
           <Link to="OverView" > Go Back to Overview </Link>
+          <h1> Goodluck with practice <UserName/> </h1>
           { !this.props.dogs && 'loading...'}
 
           { this.props.dogs && 
