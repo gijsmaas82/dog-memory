@@ -7,6 +7,7 @@ import PracticeContainer from './components/PracticeContainer'
 import { getDogs, setDogs } from './actions/getDogs'
 import { connect } from 'react-redux';
 
+
 class App extends Component {
   componentDidMount() {
     this.props.getDogs()
