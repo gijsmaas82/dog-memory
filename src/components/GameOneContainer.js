@@ -103,10 +103,11 @@ class GameOneContainer extends Component {
     
     return (
       <div>
+        
         <h2>User: {this.props.name} points: {this.state.points}/15 streak: {this.state.streak}</h2> 
-        {this.state.question === 2 && <h1>congratulations!</h1>}       
+        
         {this.state.question === 0 && <button onClick={this.firstQuestion} > Click for the first question </button>}
-        {this.state.question !== 0 && 
+        {this.state.question !== 0 &&  
         <div>
           <h1>question: {this.state.question}</h1>
           <h2> Click on the right picture of the {this.state.breeds[Math.floor(this.state.question % this.state.breeds.length)]}</h2>
