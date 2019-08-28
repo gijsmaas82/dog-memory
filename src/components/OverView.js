@@ -4,6 +4,7 @@ import "./overView.css"
 import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux'
 import UserName from './UserName'
+import UserStatsContainer from './UserStatsContainer'
 
 export default class OverView extends Component {
 
@@ -11,7 +12,7 @@ export default class OverView extends Component {
         // console.log(this.props.name)
         return (
             <div>
-                <h1> Hello<UserName/>! </h1>
+                <UserStatsContainer />
                 <div>
 
                     <Link to='./practice'><h1 className="header">Practice</h1></Link>

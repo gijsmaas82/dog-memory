@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as request from 'superagent'
+import GameOne from './GameOne'
+import GameOver from './GameOver'
+import UserStatsContainer from './UserStatsContainer'
+import { addPoints } from '../actions/addPoints'
+import { addStreak } from '../actions/addStreak'
 
 
 function shuffle(array) {
@@ -32,6 +37,7 @@ class GameOneContainer extends Component {
   state = {
     question: 0,
     streak: 0,
+    streakCounter: 0,
     points: 0,
     breeds: [],
     rightArray: [],
@@ -73,18 +79,21 @@ class GameOneContainer extends Component {
   checkAnswer = (event) => {
     if(event.target.id === this.state.rightArray[0] && this.state.streak === 4) {
       this.setState({ question: this.state.question + 1, 
-        streak: 0, 
+        streak: 0,
+        streakCounter: this.state.streakCounter + 1, 
         points: this.state.points + 1, 
         rightArray: [], 
         shuffleArray: [] })
       this.getRandomBreeds()
+      this.props.addPoints(1)
+      this.props.addStreak(1)
     } else if (event.target.id === this.state.rightArray[0]) {
       this.setState({ question: this.state.question + 1, 
         streak: this.state.streak + 1, 
         points: this.state.points + 1, 
         rightArray: [], 
         shuffleArray: [] })
-      
+      this.props.addPoints(1)
     } else {
       this.setState({question: this.state.question + 1, 
         streak: 0,
@@ -103,28 +112,12 @@ class GameOneContainer extends Component {
     
     return (
       <div>
+        {this.state.question > 15 ? <GameOver /> :
+        <GameOne props={this.props} state={this.state} 
+        firstQuestion={this.firstQuestion}
+        getAnswers={this.getAnswers}
+        checkAnswer={this.checkAnswer} /> }
         
-        <h2>User: {this.props.name} points: {this.state.points}/15 streak: {this.state.streak}</h2> 
-        
-        {this.state.question === 0 && <button onClick={this.firstQuestion} > Click for the first question </button>}
-        {this.state.question !== 0 &&  
-        <div>
-          <h1>question: {this.state.question}</h1>
-          <h2> Click on the right picture of the {this.state.breeds[Math.floor(this.state.question % this.state.breeds.length)]}</h2>
-        </div>}
-        <div>
-          
-          {this.state.rightArray.length === 0 && this.state.question !== 0 ? 
-          <button onClick={this.getAnswers}>click for answers</button> : ''}
-          {this.state.rightArray.length !== 0 && <div>
-            <img id={this.state.shuffleArray[0]} src={this.state.shuffleArray[0]} alt="doggie" 
-            onClick={this.checkAnswer} />
-            <img id={this.state.shuffleArray[1]} src={this.state.shuffleArray[1]} alt="doggie"
-            onClick={this.checkAnswer} />
-            <img id={this.state.shuffleArray[2]} src={this.state.shuffleArray[2]} alt="doggie" 
-            onClick={this.checkAnswer} />
-          </div>}
-        </div>
       </div>
     )
   }
@@ -137,4 +130,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(GameOneContainer)
+const mapDispatchToProps = {
+  addPoints,
+  addStreak
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameOneContainer)
