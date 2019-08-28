@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as request from 'superagent'
 import "./Practice.css"
+import { Link } from 'react-router-dom';
 
 export default class Practice extends Component {
   state = {
@@ -23,11 +24,8 @@ export default class Practice extends Component {
       const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10]
       Promise.all(images)
         .then(responses => responses.map(response => {
-          this.addImages(response.body.message)
+           this.addImages(response.body.message)
         }))
-      
-      
-      // .then(response => this.addImages(response.body.message))  
     }
 
   addImages = (image) => {
@@ -38,10 +36,11 @@ export default class Practice extends Component {
   
   
   render() {
-    console.log(this.state.images)
+    
     return (
       <div className="practicePage">
         <div>
+          <Link to="OverView" > Go Back to Overview </Link>
           { !this.props.dogs && 'loading...'}
 
           { this.props.dogs && 
