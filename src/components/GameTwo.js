@@ -8,7 +8,7 @@ export default function GameTwo(props) {
       <div>
         <h2>points: {props.state.points}/15 streak: {props.state.streak} streakCounter: {props.state.streakCounter} </h2>
       </div>
-      {props.state.question === 0 && <button onClick={props.firstQuestion} > Click for the first question </button>}
+      {props.state.question === 0 && <button onClick={props.firstQuestion}  > Click for the first question </button>}
       {props.state.question !== 0 &&
         <div>
           <h1>question: {props.state.question}</h1>
@@ -21,7 +21,7 @@ export default function GameTwo(props) {
           <button onClick={props.getAnswers}>click for answers</button> : ''}
         {props.state.rightArray.length !== 0 && 
         <div>
-          <button onClick={props.checkAnswer} id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</button>
+          <button onClick={props.checkAnswer} onKeyDown={props.handleKeyDown}  id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</button>
           <button onClick={props.checkAnswer} id={props.state.shuffleArray[1]}> {props.state.shuffleArray[1]}</button>
           <button onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</button>
         </div>}

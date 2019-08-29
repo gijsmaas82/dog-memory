@@ -6,7 +6,7 @@ import GameOver from './GameOver'
 import UserStatsContainer from './UserStatsContainer'
 import { addPoints } from '../actions/addPoints'
 import { addStreak } from '../actions/addStreak'
-
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -76,7 +76,12 @@ class GameOneContainer extends Component {
          this.setState({ shuffleArray: shuffle(shuffleArray)})
       })
   }
-
+  handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      console.log('enter press here! ')
+    }
+  }
+  
   checkAnswer = (event) => {
     this.setState({ answer: event.target.id })
     if(event.target.id === this.state.rightArray[0] && this.state.streak === 4) {
@@ -124,7 +129,8 @@ class GameOneContainer extends Component {
         <GameOne props={this.props} state={this.state} 
         firstQuestion={this.firstQuestion}
         getAnswers={this.getAnswers}
-        checkAnswer={this.checkAnswer} /> }
+        checkAnswer={this.checkAnswer}  />}
+       
         
       </div>
     )
