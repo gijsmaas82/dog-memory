@@ -27,11 +27,6 @@ function shuffle(array) {
   return array;
 }
 
-// Used like so
-var arr = [2, 11, 37, 42];
-arr = shuffle(arr);
-
-
 
 class GameTwoContainer extends Component {
   state = {
@@ -105,14 +100,21 @@ class GameTwoContainer extends Component {
       })
       this.props.addPoints(1)
     } else {
-      this.setState({
-        question: this.state.question + 1,
-        streak: 0,
-        rightArray: [],
-        shuffleArray: []
-      })
-    }
+      setTimeout(this.wrongAnswer, 2000)
+      this.setState({ shuffleArray: this.state.shuffleArray.reduce((acc, cur) => {
+        if (cur === this.state.rightArray[0]) {
+          acc.push(cur)
+        }
+        return acc
+      }, [] )})
+    } 
+  }
 
+  wrongAnswer = () => {
+    this.setState({question: this.state.question + 1, 
+      streak: 0,
+      rightArray: [], 
+      shuffleArray: [] }) 
   }
 
   componentDidMount() {
