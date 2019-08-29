@@ -18,7 +18,7 @@ export default function GameOne(props) {
           
           {props.state.rightArray.length === 0 && props.state.question !== 0 ? 
           <button onClick={props.getAnswers}>click for answers</button> : ''}
-          {props.state.rightArray.length !== 0 && <div>
+          {props.state.shuffleArray.length === 3 && <div>
             <img className="img" id={props.state.shuffleArray[0]} src={props.state.shuffleArray[0]} alt="doggie" 
             onClick={props.checkAnswer} />
             <img className="img" id={props.state.shuffleArray[1]} src={props.state.shuffleArray[1]} alt="doggie"
@@ -26,6 +26,11 @@ export default function GameOne(props) {
             <img className="img" id={props.state.shuffleArray[2]} src={props.state.shuffleArray[2]} alt="doggie" 
             onClick={props.checkAnswer} />
           </div>}
+          
+          {props.state.shuffleArray.length === 1 && <div>
+            <img className="img" id={props.state.shuffleArray[0]} src={props.state.shuffleArray[0]} alt="doggie" 
+            onClick={props.checkAnswer} />
+          </div> }
         </div>
         <Link to='/overview' >Click to go back to the overview page</Link>
     </div>

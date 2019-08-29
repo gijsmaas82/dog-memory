@@ -15,9 +15,9 @@ export default function GameThreeB(props) {
         {props.state.rightArrayB.length === 0 && props.state.question !== 0 ? 
           <button onClick={props.getAnswers}>click for answers</button> : ''}
           {props.state.rightArrayB.length !== 0 && <div>
-            <h2 id={props.state.shuffleArrayB[0]} onClick={props.checkAnswer} >a: {props.state.shuffleArrayB[0]}</h2>
-            <h2 id={props.state.shuffleArrayB[1]} onClick={props.checkAnswer} >b: {props.state.shuffleArrayB[1]}</h2>
-            <h2 id={props.state.shuffleArrayB[2]} onClick={props.checkAnswer} >c: {props.state.shuffleArrayB[2]}</h2>
+            <h2 id={props.state.shuffleArrayB[0]} onClick={props.checkAnswer} > {props.state.shuffleArrayB[0]}</h2>
+            <h2 id={props.state.shuffleArrayB[1]} onClick={props.checkAnswer} > {props.state.shuffleArrayB[1]}</h2>
+            <h2 id={props.state.shuffleArrayB[2]} onClick={props.checkAnswer} > {props.state.shuffleArrayB[2]}</h2>
           </div>}
         </div>  
       </div>}

@@ -28,12 +28,6 @@ function shuffle(array) {
   return array;
 }
 
-// Used like so
-var arr = [2, 11, 37, 42];
-arr = shuffle(arr);
-
-
-
 class GameThreeContainer extends Component {
   state = {
     GameTypeA: true,
@@ -131,14 +125,23 @@ class GameThreeContainer extends Component {
         shuffleArrayA: [] })
       this.props.addPoints(1)
     } else {
-      this.setState({
-        GameTypeA: !this.state.GameTypeA,
-        question: this.state.question + 1, 
-        streak: 0,
-        rightArrayA: [], 
-        shuffleArrayA: [] })
-    }
-    
+      setTimeout(this.wrongAnswerA, 2000)
+      this.setState({ shuffleArrayA: this.state.shuffleArrayA.reduce((acc, url) => {
+        if (url === this.state.rightArrayA[0]) {
+          acc.push(url)
+        }
+        return acc
+      }, [])})
+    } 
+  }
+
+  wrongAnswerA = () => {
+    this.setState({
+      GameTypeA: !this.state.GameTypeA,
+      question: this.state.question + 1, 
+      streak: 0,
+      rightArrayA: [], 
+      shuffleArrayA: [] }) 
   }
 
   checkAnswerB = (event) => {
@@ -164,15 +167,25 @@ class GameThreeContainer extends Component {
         shuffleArrayB: [] })
       this.props.addPoints(1)
     } else {
-      this.setState({
-        GameTypeA: !this.state.GameTypeA,
-        question: this.state.question + 1, 
-        streak: 0,
-        rightArrayB: [], 
-        shuffleArrayB: [] })
-    }
-    
+      setTimeout(this.wrongAnswerB, 2000)
+      this.setState({ shuffleArrayB: this.state.shuffleArrayB.reduce((acc, cur) => {
+        if (cur === this.state.rightArrayB[0]) {
+          acc.push(cur)
+        }
+        return acc
+      }, [] )})
+    } 
   }
+
+  wrongAnswerB = () => {
+    this.setState({
+      GameTypeA: !this.state.GameTypeA,
+      question: this.state.question + 1, 
+      streak: 0,
+      rightArrayB: [], 
+      shuffleArrayB: [] }) 
+  }
+
 
   componentDidMount() {
     

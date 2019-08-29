@@ -27,12 +27,6 @@ function shuffle(array) {
   return array;
 }
 
-// Used like so
-var arr = [2, 11, 37, 42];
-arr = shuffle(arr);
-
-
-
 class GameOneContainer extends Component {
   state = {
     question: 0,
@@ -42,7 +36,6 @@ class GameOneContainer extends Component {
     breeds: [],
     rightArray: [],
     shuffleArray: [],
-    answer: null
     }
 
   firstQuestion = () => {
@@ -78,7 +71,6 @@ class GameOneContainer extends Component {
   }
 
   checkAnswer = (event) => {
-    this.setState({ answer: event.target.id })
     if(event.target.id === this.state.rightArray[0] && this.state.streak === 4) {
       this.setState({ question: this.state.question + 1, 
         streak: 0,
@@ -98,9 +90,12 @@ class GameOneContainer extends Component {
       this.props.addPoints(1)
     } else {
       setTimeout(this.wrongAnswer, 2000)
-      this.setState({ shuffleArray: this.state.shuffleArray.map(url => {
-        return url = this.state.rightArray[0]
-      })})
+      this.setState({ shuffleArray: this.state.shuffleArray.reduce((acc, url) => {
+        if (url === this.state.rightArray[0]) {
+          acc.push(url)
+        }
+        return acc
+      }, [])})
     } 
   }
 
