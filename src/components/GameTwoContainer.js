@@ -1,28 +1,135 @@
 import React, { Component } from 'react'
-import UserName from './UserName';
 import { connect } from 'react-redux'
-//import * as request from 'superagent'
+import * as request from 'superagent'
+import GameTwo from './GameTwo'
+import GameOver from './GameOver'
+import UserStatsContainer from './UserStatsContainer'
+import { addPoints } from '../actions/addPoints'
+import { addStreak } from '../actions/addStreak'
 
-class SecondGame extends Component {
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+// Used like so
+var arr = [2, 11, 37, 42];
+arr = shuffle(arr);
+
+
+
+class GameTwoContainer extends Component {
   state = {
-    images: []
+    question: 0,
+    streak: 0,
+    streakCounter: 0,
+    points: 0,
+    breeds: [],
+    breedsAnswers: [],
+    rightArray: [],
+    shuffleArray: [],
   }
 
-  getThreeDogImages = () => {
-    // const img1 = request(`https://dog.ceo/api/breed/${encodeURIComponent(dog)}/images/random`)
-    // const img2 = request(`https://dog.ceo/api/breed/${encodeURIComponent(dog)}/images/random`)
-    // const img3 = request(`https://dog.ceo/api/breed/${encodeURIComponent(dog)}/images/random`)
+  firstQuestion = () => {
+    this.setState({ question: this.state.question + 1 })
+    this.getRandomBreeds()
   }
+
+  getRandomBreeds = () => {
+
+    const newDogs = [
+      this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)],
+      this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)],
+      this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)]
+    ]
+    this.setState({ breedsAnswers: this.state.breedsAnswers.concat(newDogs) })
+
+    const newDogImg1 = request(`https://dog.ceo/api/breed/${encodeURIComponent(newDogs[0])}/images/random`)
+    const newDogImg2 = request(`https://dog.ceo/api/breed/${encodeURIComponent(newDogs[1])}/images/random`)
+    const newDogImg3 = request(`https://dog.ceo/api/breed/${encodeURIComponent(newDogs[2])}/images/random`)
+
+    const images = [newDogImg1, newDogImg2, newDogImg3]
+    Promise.all(images)
+      .then(responses => responses.map(response => { 
+        return this.setState({breeds: this.state.breeds.concat(response.body.message)})
+      }))
+     
+  }
+
+  getAnswers = () => {
+    const rightDog = this.state.breedsAnswers[Math.floor(this.state.question % this.state.breeds.length)]
+    const wrongDog1 = this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)]
+    const wrongDog2 = this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)]
+  
+    const dogsArray = this.state.rightArray.concat([rightDog, wrongDog1, wrongDog2])
+    this.setState({rightArray: dogsArray})
+    const b = dogsArray.map(dog => dog)
+    this.setState({shuffleArray: shuffle(b)})
+  }
+
+  checkAnswer = (event) => {
+    if (event.target.id === this.state.rightArray[0] && this.state.streak === 4) {
+      this.setState({
+        question: this.state.question + 1,
+        streak: 0,
+        streakCounter: this.state.streakCounter + 1,
+        points: this.state.points + 1,
+        rightArray: [],
+        shuffleArray: []
+      })
+      this.getRandomBreeds()
+      this.props.addPoints(1)
+      this.props.addStreak(1)
+    } else if (event.target.id === this.state.rightArray[0]) {
+      this.setState({
+        question: this.state.question + 1,
+        streak: this.state.streak + 1,
+        points: this.state.points + 1,
+        rightArray: [],
+        shuffleArray: []
+      })
+      this.props.addPoints(1)
+    } else {
+      this.setState({
+        question: this.state.question + 1,
+        streak: 0,
+        rightArray: [],
+        shuffleArray: []
+      })
+    }
+
+  }
+
+  componentDidMount() {
+
+  }
+
 
   render() {
-    (console.log(this.props.dogs))
+
     return (
       <div>
-        <h1> Ready? <UserName /> </h1>
-        <div> Question</div>
-        <div> 3 random dogbreed pictures 
- 
-        </div>
+        {this.state.question > 15 ? <GameOver /> :
+          <GameTwo props={this.props} state={this.state}
+            firstQuestion={this.firstQuestion}
+            getAnswers={this.getAnswers}
+            checkAnswer={this.checkAnswer} />}
+
       </div>
     )
   }
@@ -30,13 +137,14 @@ class SecondGame extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    dogs: state.dogs
+    dogs: state.dogs,
+    name: state.login
   }
 }
-export default connect(mapStateToProps)(SecondGame)
 
+const mapDispatchToProps = {
+  addPoints,
+  addStreak
+}
 
-// In this game you'll get 15 questions. 
-// You get a name of a dog breed and you have to choose the right picture.
-// You start with 3 breeds and 3 possible pictures. 
-// After 5 correct answers the game gets more difficult.
+export default connect(mapStateToProps, mapDispatchToProps)(GameTwoContainer)
