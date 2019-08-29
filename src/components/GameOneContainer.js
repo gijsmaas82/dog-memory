@@ -55,7 +55,6 @@ class GameOneContainer extends Component {
       this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)],
       this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)]]
     this.setState({ breeds: this.state.breeds.concat(newDogs)})
-    console.log('hello')   
   }
 
   getAnswers = () => {
@@ -76,12 +75,7 @@ class GameOneContainer extends Component {
          this.setState({ shuffleArray: shuffle(shuffleArray)})
       })
   }
-  handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
-      console.log('enter press here! ')
-    }
-  }
-  
+
   checkAnswer = (event) => {
     this.setState({ answer: event.target.id })
     if(event.target.id === this.state.rightArray[0] && this.state.streak === 4) {

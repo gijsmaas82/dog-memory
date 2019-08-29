@@ -13,7 +13,7 @@ export default function GameOne(props) {
        </div>
           {props.state.question === 0 && <button className="buttonQuestion" onClick={props.firstQuestion} > 
         <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
-            props.getAnswers({target: {className: "buttonQuestion"}}) }/>
+            props.firstQuestion({target: {className: "buttonQuestion"}}) }/>
             Click for the first question </button>}
         {props.state.question !== 0 &&  
         <div>

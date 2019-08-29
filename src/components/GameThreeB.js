@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import './GameOne.css'
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+
 
 export default function GameThreeB(props) {
   return (
@@ -13,8 +15,18 @@ export default function GameThreeB(props) {
         </div>
         <div>
         {props.state.rightArrayB.length === 0 && props.state.question !== 0 ? 
-          <button onClick={props.getAnswers}>click for answers</button> : ''}
+          <button onClick={props.getAnswers}>
+             <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
+            props.getAnswers({target: {className: "buttonAnswer"}}) }/>
+           click for answers</button> : ''}
           {props.state.rightArrayB.length !== 0 && <div>
+
+
+            <KeyboardEventHandler handleKeys={['1']} onKeyEvent={(key) => props.checkAnswer({target: {id: props.state.shuffleArrayB[0]}}) }/>
+              <KeyboardEventHandler handleKeys={['2']} onKeyEvent={(key) => props.checkAnswer({target: {id: props.state.shuffleArrayB[1]}}) }/>
+              <KeyboardEventHandler handleKeys={['3']} onKeyEvent={(key) => props.checkAnswer({target: {id: props.state.shuffleArrayB[2]}}) }/>
+
+
             <h2 id={props.state.shuffleArrayB[0]} onClick={props.checkAnswer} >a: {props.state.shuffleArrayB[0]}</h2>
             <h2 id={props.state.shuffleArrayB[1]} onClick={props.checkAnswer} >b: {props.state.shuffleArrayB[1]}</h2>
             <h2 id={props.state.shuffleArrayB[2]} onClick={props.checkAnswer} >c: {props.state.shuffleArrayB[2]}</h2>
