@@ -8,7 +8,7 @@ import { getDogs, setDogs } from './actions/getDogs'
 import { connect } from 'react-redux';
 import GameTwoContainer from './components/GameTwoContainer'
 import GameOneContainer from './components/GameOneContainer'
-
+import GameThreeContainer from './components/GameThreeContainer'
 class App extends Component {
   componentDidMount() {
     this.props.getDogs()
@@ -20,9 +20,9 @@ class App extends Component {
         <Route exact path="/" component={LogInForm} />
         <Route  path="/practice/" component={PracticeContainer} />
         <Route path="/overview/" component={OverView} />
-
-        <Route path="/gametwo/" component={GameTwoContainer}/>
         <Route path="/gameone/" component={GameOneContainer} />
+        <Route path="/gametwo/" component={GameTwoContainer}/>
+        <Route path="/gamethree/" component={GameThreeContainer} />
       </div>
     )
   }
