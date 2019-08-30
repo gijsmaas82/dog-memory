@@ -43,6 +43,7 @@ class GameThreeContainer extends Component {
     shuffleArrayA: [],
     rightArrayB: [],
     shuffleArrayB: [],
+    showHintButton: true,
     }
 
   firstQuestion = () => {
@@ -112,7 +113,9 @@ class GameThreeContainer extends Component {
         streakCounter: this.state.streakCounter + 1, 
         points: this.state.points + 1, 
         rightArrayA: [], 
-        shuffleArrayA: [] })
+        shuffleArrayA: [],
+        showHintButton: false,
+       })
       this.getRandomBreedsA()
       this.props.addPoints(1)
       this.props.addStreak(1)
@@ -123,7 +126,9 @@ class GameThreeContainer extends Component {
         streak: this.state.streak + 1, 
         points: this.state.points + 1, 
         rightArrayA: [], 
-        shuffleArrayA: [] })
+        shuffleArrayA: [],
+        showHintButton: false,
+       })
       this.props.addPoints(1)
     } else {
       setTimeout(this.wrongAnswerA, 2000)
@@ -142,8 +147,28 @@ class GameThreeContainer extends Component {
       question: this.state.question + 1, 
       streak: 0,
       rightArrayA: [], 
-      shuffleArrayA: [] }) 
+      shuffleArrayA: [],
+      showHintButton: true,
+     }) 
   }
+
+  getHintA = () => {
+    if (this.state.shuffleArrayA[0] === this.state.rightArrayA[0]) {
+    this.setState({
+    shuffleArrayA: [this.state.shuffleArrayA[0], this.state.shuffleArrayA[1]]
+    })
+    }
+    else if (this.state.shuffleArrayA[1] === this.state.rightArrayA[0]) {
+    this.setState({
+    shuffleArrayA: [this.state.shuffleArrayA[1], this.state.shuffleArrayA[0]]
+    })
+    }
+    else {
+    this.setState({
+    shuffleArrayA: [this.state.shuffleArrayA[2], this.state.shuffleArrayA[0]]
+    })
+    }
+    }
 
   checkAnswerB = (event) => {
     if(event.target.id === this.state.rightArrayB[0] && this.state.streak === 4) {
@@ -154,7 +179,9 @@ class GameThreeContainer extends Component {
         streakCounter: this.state.streakCounter + 1, 
         points: this.state.points + 1, 
         rightArrayB: [], 
-        shuffleArrayB: [] })
+        shuffleArrayB: [],
+        showHintButton: false,
+       })
       this.getRandomBreedsB()
       this.props.addPoints(1)
       this.props.addStreak(1)
@@ -165,7 +192,9 @@ class GameThreeContainer extends Component {
         streak: this.state.streak + 1, 
         points: this.state.points + 1, 
         rightArrayB: [], 
-        shuffleArrayB: [] })
+        shuffleArrayB: [],
+        showHintButton: false,
+      })
       this.props.addPoints(1)
     } else {
       setTimeout(this.wrongAnswerB, 2000)
@@ -184,9 +213,28 @@ class GameThreeContainer extends Component {
       question: this.state.question + 1, 
       streak: 0,
       rightArrayB: [], 
-      shuffleArrayB: [] }) 
+      shuffleArrayB: [],
+      showHintButton: true,
+     }) 
   }
 
+  getHintB = () => {
+    if (this.state.shuffleArrayB[0] === this.state.rightArrayB[0]) {
+    this.setState({
+    shuffleArrayB: [this.state.shuffleArrayB[0], this.state.shuffleArrayB[1]]
+    })
+    }
+    else if (this.state.shuffleArrayB[1] === this.state.rightArrayB[0]) {
+    this.setState({
+    shuffleArrayB: [this.state.shuffleArrayB[1], this.state.shuffleArrayB[0]]
+    })
+    }
+    else {
+    this.setState({
+    shuffleArrayB: [this.state.shuffleArrayB[2], this.state.shuffleArrayB[0]]
+    })
+    }
+    }
 
   componentDidMount() {
     
@@ -211,10 +259,12 @@ class GameThreeContainer extends Component {
           {this.state.GameTypeA ? 
             <GameThreeA state={this.state} 
             getAnswers={this.getAnswersA}
-            checkAnswer={this.checkAnswerA} /> 
+            checkAnswer={this.checkAnswerA}
+            getHintA={this.getHintA} /> 
            : <GameThreeB state={this.state} 
             getAnswers={this.getAnswersB}
-            checkAnswer={this.checkAnswerB}/>}
+            checkAnswer={this.checkAnswerB}
+            getHintB={this.getHintB}/>}
         </div> }
       </div>
       </div>
