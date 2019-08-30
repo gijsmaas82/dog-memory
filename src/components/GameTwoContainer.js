@@ -104,22 +104,25 @@ class GameTwoContainer extends Component {
 
     } else {
       setTimeout(this.wrongAnswer, 2000)
-      this.setState({ shuffleArray: this.state.shuffleArray.reduce((acc, cur) => {
-        if (cur === this.state.rightArray[0]) {
-          acc.push(cur)
-        }
-        return acc
-      }, [] )})
-    } 
+      this.setState({
+        shuffleArray: this.state.shuffleArray.reduce((acc, cur) => {
+          if (cur === this.state.rightArray[0]) {
+            acc.push(cur)
+          }
+          return acc
+        }, [])
+      })
+    }
   }
 
   wrongAnswer = () => {
-    this.setState({question: this.state.question + 1, 
+    this.setState({
+      question: this.state.question + 1,
       streak: 0,
-      rightArray: [], 
+      rightArray: [],
       shuffleArray: [],
-      showHintButton: true            
-                  }) 
+      showHintButton: true
+    })
 
   }
 
@@ -142,39 +145,39 @@ class GameTwoContainer extends Component {
     }
   }
 
-    componentDidMount() {
+  componentDidMount() {
 
-    }
-
-    render() {
-
-      return (
-        <div>
-          {
-            this.state.question > 15 ? <GameOver /> :
-              <GameTwo props={this.props} state={this.state}
-                firstQuestion={this.firstQuestion}
-                getAnswers={this.getAnswers}
-                checkAnswer={this.checkAnswer}
-                getHint={this.getHint} />
-          }
-
-        </div >
-      )
-    }
   }
 
-  const mapStateToProps = (state) => {
-    return {
-      dogs: state.dogs,
-      name: state.login
-    }
-  }
+  render() {
 
-  const mapDispatchToProps = {
-    addPoints,
-    addStreak
+    return (
+      <div>
+        {this.state.question > 15 ? <GameOver /> :
+            <GameTwo 
+              props={this.props} 
+              state={this.state}
+              firstQuestion={this.firstQuestion}
+              getAnswers={this.getAnswers}
+              checkAnswer={this.checkAnswer}
+              getHint={this.getHint} 
+              />}
+      </div >
+    )
   }
+}
 
-  export default connect(mapStateToProps, mapDispatchToProps)(GameTwoContainer)
+const mapStateToProps = (state) => {
+  return {
+    dogs: state.dogs,
+    name: state.login
+  }
+}
+
+const mapDispatchToProps = {
+  addPoints,
+  addStreak
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameTwoContainer)
 

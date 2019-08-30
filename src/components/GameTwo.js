@@ -19,9 +19,10 @@ export default function GameTwo(props) {
           <h2> Which dogbreed is shown on this picture?</h2>
           <img className="img" src={props.state.breeds[Math.floor(props.state.question % props.state.breeds.length)]} alt="doggie" />
         </div>}
-      <div>
 
+      <div>
         {props.state.rightArray.length === 0 && props.state.question !== 0 ?
+
           <button onClick={props.getAnswers}>
            <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
             props.getAnswers({target: {}}) }/>            
@@ -47,7 +48,7 @@ export default function GameTwo(props) {
               props.getHint({target: {}}) }/>
               Click for a hint</button> :  " "} 
         </div>
-       
+
       </div>
       <Link to='/overview' > Click to go back to the overview page</Link>
     </div>
