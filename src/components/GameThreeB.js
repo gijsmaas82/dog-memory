@@ -33,6 +33,10 @@ export default function GameThreeB(props) {
             <h2 id={props.state.shuffleArrayB[1]} onClick={props.checkAnswer} > {props.state.shuffleArrayB[1]}</h2>
             <h2 id={props.state.shuffleArrayB[2]} onClick={props.checkAnswer} > {props.state.shuffleArrayB[2]}</h2>
           </div>}
+          <div>
+              {props.state.showHintButton === true && props.state.rightArrayB.length !== 0 && props.state.shuffleArrayB.length === 3 ?
+                <button onClick={props.getHintB}>Click for a hint</button> : ''}
+            </div>
         </div>  
       </div>}
 
