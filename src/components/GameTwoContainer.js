@@ -119,7 +119,7 @@ class GameTwoContainer extends Component {
       rightArray: [], 
       shuffleArray: [],
       showHintButton: true            
-                  }) 
+      }) 
 
   }
 
