@@ -12,8 +12,8 @@ export default class OverView extends Component {
         return (
             <div>
                 <UserStatsContainer />
+                <div className="overviewBackground">
                 <div>
-
                     <Link to='./practice'><h1 className="header">Practice</h1></Link>
 
                 </div>
@@ -35,6 +35,7 @@ export default class OverView extends Component {
                         <span className=""><DescriptionOfThirdGame /></span>
                     </div>
                 </div>
+            </div>
             </div>
         )
     }
