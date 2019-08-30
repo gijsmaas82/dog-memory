@@ -26,8 +26,8 @@ export default function GameTwo(props) {
           <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</h2>
         </div>}
           <div>
-            {props.state.showHintButton === true &&
-             <button onClick={props.getHint}>Click for a hint</button>}
+            {props.state.showHintButton === true && props.state.rightArray.length !== 0 && props.state.shuffleArray.length === 3 ?
+             <button onClick={props.getHint}>Click for a hint</button> :  " "} 
         </div>
        
       </div>
