@@ -10,11 +10,10 @@ export default class OverView extends Component {
     render() {
         // console.log(this.props.name)
         return (
-            <div>
+            <div className="overviewBackground">
                 <UserStatsContainer />
-                <div>
-
-                    <Link to='./practice'><h1 className="header">Practice</h1></Link>
+                <div className="headerOverview">
+                    <Link to='./practice'><h1>Click here to practice</h1></Link>
 
                 </div>
                 <div className="buttons">
@@ -34,6 +33,9 @@ export default class OverView extends Component {
                     <div className="descriptionsofgame">
                         <span className=""><DescriptionOfThirdGame /></span>
                     </div>
+                </div>
+                <div className="explanation">
+                    <p>In every game you get a hint which eliminates one option. You only get the hint one your first question or when you answered incorrect. Afer a streak of 5 answers the game gets more difficult.You can also use the keyboard. Enter to get the questions and answers and 1, 2 or 3 to choose the answers. Good luck!</p> 
                 </div>
             </div>
         )
