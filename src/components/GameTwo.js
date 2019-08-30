@@ -21,14 +21,14 @@ export default function GameTwo(props) {
           <button onClick={props.getAnswers}>click for answers</button> : ''}
         {props.state.rightArray.length !== 0 && 
         <div>
-          <button onClick={props.checkAnswer} id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</button>
-          <button onClick={props.checkAnswer} id={props.state.shuffleArray[1]}> {props.state.shuffleArray[1]}</button>
-          <button onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</button>
+          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</h2>
+          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[1]}> {props.state.shuffleArray[1]}</h2>
+          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</h2>
+        </div>}
           <div>
             {props.state.showHintButton === true &&
              <button onClick={props.getHint}>Click for a hint</button>}
         </div>
-        </div>}
        
       </div>
       <Link to='/overview' > Click to go back to the overview page</Link>

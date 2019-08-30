@@ -15,7 +15,7 @@ export default function GameThreeA(props) {
           
           {props.state.rightArrayA.length === 0 && props.state.question !== 0 ? 
           <button onClick={props.getAnswers}>click for answers</button> : ''}
-          {props.state.rightArrayA.length !== 0 && <div>
+          {props.state.shuffleArrayA.length === 3 && <div>
             <img className="img" id={props.state.shuffleArrayA[0]} src={props.state.shuffleArrayA[0]} alt="doggie" 
             onClick={props.checkAnswer} />
             <img className="img" id={props.state.shuffleArrayA[1]} src={props.state.shuffleArrayA[1]} alt="doggie"
@@ -23,6 +23,9 @@ export default function GameThreeA(props) {
             <img className="img" id={props.state.shuffleArrayA[2]} src={props.state.shuffleArrayA[2]} alt="doggie" 
             onClick={props.checkAnswer} />
           </div>}
+
+          {props.state.shuffleArrayA.length === 1 && <img className="img" id={props.state.shuffleArrayA[0]} src={props.state.shuffleArrayA[0]} alt="doggie" 
+            onClick={props.checkAnswer} />}
         </div>
         <Link to='/overview' >Click to go back to the overview page</Link>
     </div>
