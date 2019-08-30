@@ -24,7 +24,7 @@ export default function GameThreeA(props) {
             onClick={props.checkAnswer} />
         </div>}
 
-        <div>
+        <div> 
           {props.state.showHintButton === true && props.state.rightArrayA.length !== 0 && props.state.shuffleArrayA.length === 3 ?
             <button onClick={props.getHintA}>Click for a hint</button> : ''}
         </div>
