@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import './GameOne.css'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 
 export default function GameThreeA(props) {
@@ -13,8 +14,17 @@ export default function GameThreeA(props) {
         <div>
           
           {props.state.rightArrayA.length === 0 && props.state.question !== 0 ? 
-          <div className="answerBtn"><h2 onClick={props.getAnswers}>click for answers</h2></div> : ''}
+          <div className="answerBtn"><h2 onClick={props.getAnswers}>
+             <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
+            props.getAnswers({target: {className: "answerBtn"}}) }/>
+            click for answers</h2></div> : ''}
           {props.state.shuffleArrayA.length === 3 && <div>
+
+              <KeyboardEventHandler handleKeys={['1']} onKeyEvent={(key) => props.checkAnswer({target: {id: props.state.shuffleArrayA[0]}}) }/>
+              <KeyboardEventHandler handleKeys={['2']} onKeyEvent={(key) => props.checkAnswer({target: {id: props.state.shuffleArrayA[1]}}) }/>
+              <KeyboardEventHandler handleKeys={['3']} onKeyEvent={(key) => props.checkAnswer({target: {id: props.state.shuffleArrayA[2]}}) }/>
+
+
             <img className="img" id={props.state.shuffleArrayA[0]} src={props.state.shuffleArrayA[0]} alt="doggie" 
             onClick={props.checkAnswer} />
             <img className="img" id={props.state.shuffleArrayA[1]} src={props.state.shuffleArrayA[1]} alt="doggie"
