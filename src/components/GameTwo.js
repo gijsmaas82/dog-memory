@@ -15,21 +15,22 @@ export default function GameTwo(props) {
           <h2> Which dogbreed is shown on this picture?</h2>
           <img className="img" src={props.state.breeds[Math.floor(props.state.question % props.state.breeds.length)]} alt="doggie" />
         </div>}
-      <div>
 
+      <div>
         {props.state.rightArray.length === 0 && props.state.question !== 0 ?
           <button onClick={props.getAnswers}>click for answers</button> : ''}
-        {props.state.rightArray.length !== 0 && 
-        <div>
-          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</h2>
-          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[1]}> {props.state.shuffleArray[1]}</h2>
-          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</h2>
-        </div>}
+        {props.state.rightArray.length !== 0 &&
           <div>
-            {props.state.showHintButton === true &&
-             <button onClick={props.getHint}>Click for a hint</button>}
+            <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</h2>
+            <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[1]}> {props.state.shuffleArray[1]}</h2>
+            <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</h2>
+          </div>}
+
+        <div>
+          {props.state.showHintButton === true && props.state.rightArray.length !== 0 && props.state.shuffleArray.length === 3 ?
+            <button onClick={props.getHint}>Click for a hint</button> : ''}
         </div>
-       
+
       </div>
       <Link to='/overview' > Click to go back to the overview page</Link>
     </div>
