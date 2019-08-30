@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import './GameTwo.css'
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 export default function GameTwo(props) {
   return (
@@ -8,7 +9,10 @@ export default function GameTwo(props) {
       <div>
         <h2>points: {props.state.points}/15 streak: {props.state.streak} streakCounter: {props.state.streakCounter} </h2>
       </div>
-      {props.state.question === 0 && <button onClick={props.firstQuestion} > Click for the first question </button>}
+      {props.state.question === 0 && <button onClick={props.firstQuestion} > 
+      <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
+            props.firstQuestion({target: {}}) }/>
+      Click for the first question </button>}
       {props.state.question !== 0 &&
         <div>
           <h1>question: {props.state.question}</h1>
@@ -18,17 +22,31 @@ export default function GameTwo(props) {
 
       <div>
         {props.state.rightArray.length === 0 && props.state.question !== 0 ?
-          <button onClick={props.getAnswers}>click for answers</button> : ''}
-        {props.state.rightArray.length !== 0 &&
-          <div>
-            <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</h2>
-            <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[1]}> {props.state.shuffleArray[1]}</h2>
-            <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</h2>
-          </div>}
 
+          <button onClick={props.getAnswers}>
+           <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
+            props.getAnswers({target: {}}) }/>            
+            click for answers</button> : ''}
+        {props.state.rightArray.length !== 0 && 
         <div>
-          {props.state.showHintButton === true && props.state.rightArray.length !== 0 && props.state.shuffleArray.length === 3 ?
-            <button onClick={props.getHint}>Click for a hint</button> : ''}
+
+              <KeyboardEventHandler handleKeys={['1']} onKeyEvent={(key) => 
+                props.checkAnswer({target: {id: props.state.shuffleArray[0]}}) }/>
+              <KeyboardEventHandler handleKeys={['2']} onKeyEvent={(key) => 
+                props.checkAnswer({target: {id: props.state.shuffleArray[1]}}) }/>
+              <KeyboardEventHandler handleKeys={['3']} onKeyEvent={(key) => 
+                props.checkAnswer({target: {id: props.state.shuffleArray[2]}}) }/>
+
+          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[0]}> {props.state.shuffleArray[0]}</h2>
+          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[1]}> {props.state.shuffleArray[1]}</h2>
+          <h2 onClick={props.checkAnswer} id={props.state.shuffleArray[2]}> {props.state.shuffleArray[2]}</h2>
+        </div>}
+          <div>
+            {props.state.showHintButton === true && props.state.rightArray.length !== 0 && props.state.shuffleArray.length === 3 ?
+             <button onClick={props.getHint}>
+              <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
+              props.getHint({target: {}}) }/>
+              Click for a hint</button> :  " "} 
         </div>
 
       </div>
