@@ -7,7 +7,7 @@ import UserStatsContainer from './UserStatsContainer'
 import { addPoints } from '../actions/addPoints'
 import { addStreak } from '../actions/addStreak'
 
-
+ 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -36,6 +36,7 @@ class GameOneContainer extends Component {
     breeds: [],
     rightArray: [],
     shuffleArray: [],
+    showHintButton: true,
     }
 
   firstQuestion = () => {
@@ -55,9 +56,7 @@ class GameOneContainer extends Component {
     
     const rightDog = this.state.breeds[Math.floor(this.state.question % this.state.breeds.length)]
     const rıghtImage = request(`https://dog.ceo/api/breed/${encodeURIComponent(rightDog)}/images/random`)
-      
     const wrongImage1 = request(`https://dog.ceo/api/breeds/image/random`)
-      
     const wrongImage2 = request(`https://dog.ceo/api/breeds/image/random`)
     const images = [rıghtImage, wrongImage1, wrongImage2]
     Promise.all(images)
@@ -77,7 +76,10 @@ class GameOneContainer extends Component {
         streakCounter: this.state.streakCounter + 1, 
         points: this.state.points + 1, 
         rightArray: [], 
-        shuffleArray: [] })
+        shuffleArray: [],
+        showHintButton: false,
+       })
+        
       this.getRandomBreeds()
       this.props.addPoints(1)
       this.props.addStreak(1)
@@ -86,7 +88,9 @@ class GameOneContainer extends Component {
         streak: this.state.streak + 1, 
         points: this.state.points + 1, 
         rightArray: [], 
-        shuffleArray: [] })
+        shuffleArray: [],
+        showHintButton: false,
+       })
       this.props.addPoints(1)
     } else {
       setTimeout(this.wrongAnswer, 2000)
@@ -103,8 +107,28 @@ class GameOneContainer extends Component {
     this.setState({question: this.state.question + 1, 
       streak: 0,
       rightArray: [], 
-      shuffleArray: [] }) 
+      shuffleArray: [],
+      showHintButton: true,
+     }) 
   }
+
+  getHint = () => {
+    if (this.state.shuffleArray[0] === this.state.rightArray[0]) {
+    this.setState({
+    shuffleArray: [this.state.shuffleArray[0], this.state.shuffleArray[1]]
+    })
+    }
+    else if (this.state.shuffleArray[1] === this.state.rightArray[0]) {
+    this.setState({
+    shuffleArray: [this.state.shuffleArray[1], this.state.shuffleArray[0]]
+    })
+    }
+    else {
+    this.setState({
+    shuffleArray: [this.state.shuffleArray[2], this.state.shuffleArray[0]]
+    })
+    }
+    }
 
   componentDidMount() {
     
@@ -119,7 +143,8 @@ class GameOneContainer extends Component {
         <GameOne props={this.props} state={this.state} 
         firstQuestion={this.firstQuestion}
         getAnswers={this.getAnswers}
-        checkAnswer={this.checkAnswer} /> }
+        checkAnswer={this.checkAnswer}
+        getHint={this.getHint} /> }
         
       </div>
     )

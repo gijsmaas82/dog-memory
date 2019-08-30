@@ -8,6 +8,8 @@ import UserStatsContainer from './UserStatsContainer'
 import { addPoints } from '../actions/addPoints'
 import { addStreak } from '../actions/addStreak'
 import './GameOne.css'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
+
 
 
 function shuffle(array) {
@@ -205,7 +207,10 @@ class GameThreeContainer extends Component {
           <div className="headerGames">
             <h2>points: {this.state.points}/15</h2><h2> streak: {this.state.streak} </h2><h2> streakCounter: {this.state.streakCounter} </h2>
           </div>
-            {this.state.question === 0 ? <div className="startBtn"><h2 onClick={this.firstQuestion} > Click for the first question </h2></div> :
+            {this.state.question === 0 ? <div className="startBtn"><h2 onClick={this.firstQuestion} > 
+            <KeyboardEventHandler handleKeys={['Enter']} onKeyEvent={(key) => 
+            this.firstQuestion({target: {className: "startBtn"}}) }/>
+            Click for the first question </h2></div> :
           <div className="question"><h1>Question: {this.state.question}</h1></div> }
           </div>
           {this.state.GameTypeA ? 
