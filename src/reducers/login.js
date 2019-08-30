@@ -1,9 +1,14 @@
 import { ADD_NAME } from "../actions/addName";
 
-const reducer = (state = null, action = {}) => {
+const reducer = (state = 'Player One', action = {}) => {
   switch (action.type) {
     case ADD_NAME:
-      return state = action.payload;
+      if (action.payload === '') {
+        return state
+      } else {
+        return state = action.payload;
+      }
+      
     default:
       return state;
   }

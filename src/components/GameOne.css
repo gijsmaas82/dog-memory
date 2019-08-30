@@ -6,6 +6,15 @@
   grid-gap: 2rem;
 }
 
+.backgroundGamesA {
+  margin-top: 20vh;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 
 .headerGames {
   display: flex;
@@ -53,19 +62,15 @@
   color: rgba(37, 4, 36);
 }
 
-.images {
-  
+.gameImages {
   display: flex;
-  
+  justify-content: space-evenly;
 }
 
 .img {
-  
-  
   border: 3px solid black;
   border-radius: 2rem;
   animation: spin 1s linear forwards;
-
 }
 
 @keyframes spin {

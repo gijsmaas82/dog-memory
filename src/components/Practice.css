@@ -1,15 +1,57 @@
 .practicePage {
   display: flex;
+  justify-content: space-evenly;
+  background:
+  radial-gradient(ellipse at center,  rgb(81, 255, 0),rgb(81, 255, 0, 0.5) 100%);
+}
+.link1 h2 {
+  background:
+  radial-gradient(ellipse at center,  rgb(81, 255, 0),rgb(81, 255, 0, 0.5) 100%);
+  width: 100%;
+  justify-content: center;
+  font-family: 'Slackey', cursive;
+  color: rgba(37, 4, 36, 0.555);
+}
+
+.link1 h2:hover {
+  
+  color: rgba(37, 4, 36);
+}
+
+.practiceList {
+  list-style: none;
+  font-family: 'Kranky', cursive;
+  font-size: 2rem;
+  color: rgba(37, 4, 36, 0.555);
+}
+
+.practiceListItem:hover {
+  color: rgba(37, 4, 36);
 }
 
 .images {
-  flex-direction: row;
+  display: flex;
+  flex-direction: column;
   max-width: 100em;
   justify-content: space-evenly
 }
 
 .image {
-  height: 40vh;
   border: 3px solid black;
+  border-radius: 2rem;
+  animation: spin 1s linear forwards;
 
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+    height: 20vh
+    
+  }
+  to {
+    transform: rotate(360deg);
+    height: 40vh
+  
+  }
 }

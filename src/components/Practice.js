@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
-
+import UserStatsContainer from './UserStatsContainer'
 import "./Practice.css"
 import { Link } from 'react-router-dom';
-import UserName from './UserName'
 
 export default class Practice extends Component {
-
   
   render() {
     
     return (
+      <div>
+        <UserStatsContainer />
+        
       <div className="practicePage">
         <div>
-          <Link to="OverView" > Go Back to Overview </Link>
-          <h1> Goodluck with practice <UserName/> </h1>
+          
+          
           { !this.props.dogs && 'loading...'}
 
           { this.props.dogs && 
@@ -33,6 +34,8 @@ export default class Practice extends Component {
           })
           }
          </div> 
+      </div>
+      <Link to='/overview' ><div className="link1" ><h2>Click to go back to the overview page</h2></div></Link>
       </div>
     )
   }

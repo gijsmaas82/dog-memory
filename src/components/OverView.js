@@ -3,7 +3,6 @@ import { DescriptionOfFirstGame, DescriptionOfSecondGame, DescriptionOfThirdGame
 import "./overView.css"
 import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux'
-import UserName from './UserName'
 import UserStatsContainer from './UserStatsContainer'
 
 export default class OverView extends Component {

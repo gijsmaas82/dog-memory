@@ -7,6 +7,7 @@ import GameOver from './GameOver'
 import UserStatsContainer from './UserStatsContainer'
 import { addPoints } from '../actions/addPoints'
 import { addStreak } from '../actions/addStreak'
+import './GameOne.css'
 
 
 function shuffle(array) {
@@ -196,21 +197,26 @@ class GameThreeContainer extends Component {
     
     return (
       <div>
+        <UserStatsContainer />
+      <div className="backgroundGames">
         {this.state.question > 15 ? <GameOver /> : 
         <div> 
           <div>
-            <h2>points: {this.state.points}/15 streak: {this.state.streak} streakCounter: {this.state.streakCounter} </h2> 
-            {this.state.question === 0 ? <button onClick={this.firstQuestion} > Click for the first question </button> :
-          <h1>question: {this.state.question}</h1> }
+          <div className="headerGames">
+            <h2>points: {this.state.points}/15</h2><h2> streak: {this.state.streak} </h2><h2> streakCounter: {this.state.streakCounter} </h2>
           </div>
-          {this.state.GameTypeA ? <div>
+            {this.state.question === 0 ? <div className="startBtn"><h2 onClick={this.firstQuestion} > Click for the first question </h2></div> :
+          <div className="question"><h1>Question: {this.state.question}</h1></div> }
+          </div>
+          {this.state.GameTypeA ? 
             <GameThreeA state={this.state} 
             getAnswers={this.getAnswersA}
             checkAnswer={this.checkAnswerA} /> 
-          </div> : <GameThreeB state={this.state} 
+           : <GameThreeB state={this.state} 
             getAnswers={this.getAnswersB}
             checkAnswer={this.checkAnswerB}/>}
         </div> }
+      </div>
       </div>
     )
   }
