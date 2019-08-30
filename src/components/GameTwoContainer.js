@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import * as request from 'superagent'
 import GameTwo from './GameTwo'
 import GameOver from './GameOver'
-import UserStatsContainer from './UserStatsContainer'
 import { addPoints } from '../actions/addPoints'
 import { addStreak } from '../actions/addStreak'
 
@@ -32,7 +31,6 @@ var arr = [2, 11, 37, 42];
 arr = shuffle(arr);
 
 
-
 class GameTwoContainer extends Component {
   state = {
     question: 0,
@@ -43,6 +41,7 @@ class GameTwoContainer extends Component {
     breedsAnswers: [],
     rightArray: [],
     shuffleArray: [],
+    showHintButton: true
   }
 
   firstQuestion = () => {
@@ -65,21 +64,21 @@ class GameTwoContainer extends Component {
 
     const images = [newDogImg1, newDogImg2, newDogImg3]
     Promise.all(images)
-      .then(responses => responses.map(response => { 
-        return this.setState({breeds: this.state.breeds.concat(response.body.message)})
+      .then(responses => responses.map(response => {
+        return this.setState({ breeds: this.state.breeds.concat(response.body.message) })
       }))
-     
   }
+
 
   getAnswers = () => {
     const rightDog = this.state.breedsAnswers[Math.floor(this.state.question % this.state.breeds.length)]
     const wrongDog1 = this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)]
     const wrongDog2 = this.props.dogs[Math.floor(Math.random() * this.props.dogs.length)]
-  
+
     const dogsArray = this.state.rightArray.concat([rightDog, wrongDog1, wrongDog2])
-    this.setState({rightArray: dogsArray})
+    this.setState({ rightArray: dogsArray })
     const b = dogsArray.map(dog => dog)
-    this.setState({shuffleArray: shuffle(b)})
+    this.setState({ shuffleArray: shuffle(b) })
   }
 
   checkAnswer = (event) => {
@@ -90,61 +89,87 @@ class GameTwoContainer extends Component {
         streakCounter: this.state.streakCounter + 1,
         points: this.state.points + 1,
         rightArray: [],
-        shuffleArray: []
+        shuffleArray: [],
+        showHintButton: false
       })
       this.getRandomBreeds()
       this.props.addPoints(1)
       this.props.addStreak(1)
+
     } else if (event.target.id === this.state.rightArray[0]) {
       this.setState({
         question: this.state.question + 1,
         streak: this.state.streak + 1,
         points: this.state.points + 1,
         rightArray: [],
-        shuffleArray: []
+        shuffleArray: [],
+        showHintButton: false
       })
       this.props.addPoints(1)
+
     } else {
       this.setState({
         question: this.state.question + 1,
         streak: 0,
         rightArray: [],
-        shuffleArray: []
+        shuffleArray: [],
+        showHintButton: true
       })
     }
-
   }
 
-  componentDidMount() {
-
+  getHint = () => {
+    //alert('Hint: This is not the ' + this.state.rightArray[2] + '. Choose one of the two other answers!')
+    if (this.state.shuffleArray[0] === this.state.rightArray[0]) {
+      this.setState({
+        shuffleArray: [this.state.shuffleArray[0], this.state.shuffleArray[1]]
+      })
+    }
+    else if (this.state.shuffleArray[1] === this.state.rightArray[0]) {
+      this.setState({
+        shuffleArray: [this.state.shuffleArray[1], this.state.shuffleArray[0]]
+      })
+    }
+    else {
+      this.setState({
+        shuffleArray: [this.state.shuffleArray[2], this.state.shuffleArray[0]]
+      })
+    }
   }
 
+    componentDidMount() {
 
-  render() {
+    }
 
-    return (
-      <div>
-        {this.state.question > 15 ? <GameOver /> :
-          <GameTwo props={this.props} state={this.state}
-            firstQuestion={this.firstQuestion}
-            getAnswers={this.getAnswers}
-            checkAnswer={this.checkAnswer} />}
+    render() {
 
-      </div>
-    )
+      return (
+        <div>
+          {
+            this.state.question > 15 ? <GameOver /> :
+              <GameTwo props={this.props} state={this.state}
+                firstQuestion={this.firstQuestion}
+                getAnswers={this.getAnswers}
+                checkAnswer={this.checkAnswer}
+                getHint={this.getHint} />
+          }
+
+        </div >
+      )
+    }
   }
-}
 
-const mapStateToProps = (state) => {
-  return {
-    dogs: state.dogs,
-    name: state.login
+  const mapStateToProps = (state) => {
+    return {
+      dogs: state.dogs,
+      name: state.login
+    }
   }
-}
 
-const mapDispatchToProps = {
-  addPoints,
-  addStreak
-}
+  const mapDispatchToProps = {
+    addPoints,
+    addStreak
+  }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameTwoContainer)
+  export default connect(mapStateToProps, mapDispatchToProps)(GameTwoContainer)
+
