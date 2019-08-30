@@ -1,0 +1,97 @@
+.backgroundGames {
+  height: 100vh;
+  background:
+  radial-gradient(ellipse at center, rgba(209,255,254,1) 0%, rgba(0,0,0,1) 100%);
+  display: grid;
+  grid-gap: 2rem;
+}
+
+.backgroundGamesA {
+  margin-top: 20vh;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+.headerGames {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 20vh;
+}
+
+.headerGames h2 {
+  font-family: 'Fontdiner Swanky', cursive;
+  font-size: 3rem;
+  color: rgba(99, 165, 61, 0.555);
+}
+
+.headerGames h2:hover {
+  color: rgba(99, 165, 61);
+}
+
+.startBtn h2 {
+  font-family: 'Slackey', cursive;
+  color: rgba(37, 4, 36, 0.555);
+}
+
+.startBtn h2:hover {
+  color: rgba(37, 4, 36);
+}
+
+.question h1{
+  font-family: 'Slackey', cursive;
+  color: rgba(37, 4, 36);
+}
+
+.question h2{
+  font-family: 'Slackey', cursive;
+  color: rgba(37, 4, 36);
+}
+
+.answerBtn h2 {
+  font-family: 'Slackey', cursive;
+  color: rgba(37, 4, 36, 0.555);
+}
+
+.answerBtn h2:hover {
+  font-family: 'Slackey', cursive;
+  color: rgba(37, 4, 36);
+}
+
+.gameImages {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.img {
+  border: 3px solid black;
+  border-radius: 2rem;
+  animation: spin 1s linear forwards;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+    height: 20vh
+    
+  }
+  to {
+    transform: rotate(360deg);
+    height: 40vh
+  
+  }
+}
+
+.link h2 {
+  font-family: 'Slackey', cursive;
+  color: rgba(37, 4, 36, 0.555);
+}
+
+.link h2:hover {
+  
+  color: rgba(37, 4, 36);
+}

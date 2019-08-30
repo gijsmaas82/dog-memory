@@ -10,12 +10,10 @@ export function setDogs(dogs) {
 
 export function getDogs() {
   return function(dispatch) {
+
     request('https://dog.ceo/api/breeds/list/all')
       .then(response => {
-        const arrayOfDogsAsObjects = Object.keys(response.body.message).map(dog => {
-          const dogObject = { name: dog, images: []}
-          return dogObject
-        })
+        const arrayOfDogsAsObjects = Object.keys(response.body.message)
         dispatch(setDogs(arrayOfDogsAsObjects))
       })
     }
